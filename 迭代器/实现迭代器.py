@@ -7,20 +7,24 @@
 @Date    ：2022/7/24 16:58 
 @Describe: 实现迭代器
 """
-from collections.abc import Iterator, Iterable
 
 
 class Iter:
-    def __init__(self):
-        pass
+    def __init__(self, data):
+        self.data = data
+        self.index = len(data)
 
     def __iter__(self):
-        pass
+        return self
 
-    # def __next__(self):
-    #     pass
+    def __next__(self):
+        if self.index == 0:
+            raise StopIteration("迭代终止")
+        self.index -= 1
+        return self.data[self.index]
 
 
 if __name__ == '__main__':
-    print(isinstance(Iter(), Iterable))
-    print(isinstance(Iter(), Iterator))
+    obj = Iter([1, 2, 3, 4, 5])
+    for i in obj:
+        print(i)
